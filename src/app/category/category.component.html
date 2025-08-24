@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <p-treeTable
+    #tt
+    [value]="data"
+    [columns]="cols"
+    [styleClass]="'p-treetable-sm p-treetable-gridlines my-4'"
+    [resizableColumns]="true"
+    columnResizeMode="expand"
+    [filterMode]="filterMode"
+    [globalFilterFields]="['name', 'index']"
+    [tableStyleClass]="'my-2 dashed'"
+    [loading]="isLoading"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            type="text"
+            pInputText
+            class="p-inputtext-sm"
+            placeholder="Tìm kiếm"
+            (input)="onSearchGolbal($event.target)"
+          />
+        </div>
+
+        <p-button
+          label="Thêm mới"
+          icon="pi pi-plus"
+          severity="success"
+          [size]="'small'"
+          (onClick)="onCreateCategory($event)"
+        ></p-button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [width]="col.width"
+          [ttSortableColumn]="col.field"
+          ttResizableColumn
+          class="{{ col.styleClass }}"
+        >
+          {{ col.name }}
+
+          <p-treeTableSortIcon [field]="col.field" *ngIf="col.field" />
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-rowNode
+      let-rowData="rowData"
+      let-columns="columns"
+    >
+      <tr [ttRow]="rowNode">
+        <td
+          *ngFor="let col of columns; let i = index; let last = last"
+          [width]="col.width"
+          class="{{ col.styleClass }}"
+        >
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+
+          <ng-container
+            *ngTemplateOutlet="
+              col.field === 'status' ? status : normal;
+              context: { data: rowData[col.field] }
+            "
+          ></ng-container>
+
+          <ng-container *ngIf="last">
+            <p-button
+              icon="pi pi-pencil"
+              severity="primary"
+              text="true"
+              rounded="true"
+            />
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="cols.length">No data found.</td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+</div>
+
+<ng-template #normal let-data="data">
+  {{ data }}
+</ng-template>
+
+<ng-template #status let-data="data">
+  <p-tag severity="success" value="{{ data }}" *ngIf="data == 'ACTIVE'" />
+  <p-tag severity="danger" value="{{ data }}" *ngIf="data == 'BLOCK'" />
+</ng-template>

@@ -1,0 +1,139 @@
+<h3 class="header-bar">
+  Danh sách sạp trong chợ Bà Chiểu
+  <div class="header-actions">
+    <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-sm p-button-primary"
+      (click)="openDialog()"></button>
+  </div>
+</h3>
+
+<!-- ✅ Danh sách chỉ hiển thị khi dialog thêm mới chưa mở -->
+<div *ngIf="!dialogAddVisible">
+  <div *ngFor="let stall of stalls" class="stall-card">
+    <div class="stall-image">
+      <img [src]="stall.images[0]" alt="Stall image" />
+      <div class="stall-buttons">
+        <button pButton icon="pi pi-star" label="Đánh giá" class="p-button-sm p-button-success"
+          (click)="onRate(stall)"></button>
+        <button pButton icon="pi pi-share-alt" class="p-button-sm p-button-secondary"
+          (click)="onShare(stall)"></button>
+      </div>
+    </div>
+    <div class="stall-info">
+      <h4>{{ stall.name }}</h4>
+      <p><strong>Địa chỉ:</strong> {{ stall.address }}</p>
+      <p><strong>Liên hệ:</strong> {{ stall.contact }}</p>
+      <p><strong>Mặt hàng:</strong> {{ stall.items }}</p>
+      <p><strong>Giờ hoạt động:</strong> {{ stall.openHours }}</p>
+      <p><strong>Đánh giá:</strong> {{ stall.rating }} ⭐</p>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= -->
+<!-- ✅ Dialog thêm mới -->
+<p-dialog header="Thêm sạp mới" [(visible)]="dialogAddVisible" [modal]="true" [style]="{ width: '600px' }">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="p-field">
+      <label for="name">Tên sạp</label>
+      <input id="name" pInputText formControlName="name" placeholder="Ví dụ: Sạp Cá Chú Bảy" />
+    </div>
+
+    <div class="p-field">
+      <label for="address">Địa chỉ</label>
+      <input id="address" pInputText formControlName="address" placeholder="Lô C2, Chợ Bà Chiểu" />
+    </div>
+
+    <div class="p-field">
+      <label for="openHours">Giờ hoạt động</label>
+      <input id="openHours" pInputText formControlName="openHours" placeholder="5h - 14h" />
+    </div>
+
+    <div class="p-field">
+      <label for="contact">Liên hệ</label>
+      <input id="contact" pInputText formControlName="contact" placeholder="0902 xxx xxx" />
+    </div>
+
+    <div class="p-field">
+      <label for="items">Mặt hàng</label>
+      <input id="items" pInputText formControlName="items" placeholder="Cá lóc, cá rô,..." />
+    </div>
+
+    <div class="p-field">
+      <label for="images">Hình ảnh</label>
+      <p-fileUpload name="images[]" [multiple]="false" [customUpload]="true" (onSelect)="onSelectFiles($event)"
+        chooseLabel="Chọn ảnh" uploadLabel="Tải lên" cancelLabel="Hủy">
+      </p-fileUpload>
+    </div>
+  </form>
+
+  <p-footer>
+    <button pButton label="Hủy" icon="pi pi-times" class="p-button-text" (click)="dialogAddVisible = false"></button>
+    <button pButton label="Lưu" icon="pi pi-check" (click)="save()" [disabled]="form.invalid"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- ✅ Dialog chờ duyệt (NGANG HÀNG, không lồng vào dialog trên) -->
+<p-dialog header="Sạp đang chờ duyệt" [(visible)]="dialogPendingVisible" [modal]="true" [style]="{ width: '400px' }">
+  <div *ngIf="lastAddedStall">
+    <h4>{{ lastAddedStall.name }}</h4>
+    <p><strong>Địa chỉ:</strong> {{ lastAddedStall.address }}</p>
+    <p><strong>Liên hệ:</strong> {{ lastAddedStall.contact }}</p>
+    <p><strong>Mặt hàng:</strong> {{ lastAddedStall.items }}</p>
+    <p><strong>Giờ hoạt động:</strong> {{ lastAddedStall.openHours }}</p>
+    <img *ngIf="lastAddedStall.images?.length"
+         [src]="lastAddedStall.images[0]"
+         alt="Ảnh sạp"
+         style="max-width: 100%; border-radius: 8px; margin-top: 10px;" />
+    <p style="color: orange; margin-top: 10px;">⏳ Sạp của bạn đang chờ duyệt...</p>
+  </div>
+
+  <p-footer>
+    <button pButton label="Đóng" icon="pi pi-times" class="p-button-text" (click)="dialogPendingVisible = false"></button>
+  </p-footer>
+</p-dialog>
+
+
+<!-- ✅ Dialog ĐÁNH GIÁ đặt 1 lần ở cuối -->
+<p-dialog header="Đánh giá sạp" [(visible)]="dialogReviewVisible" [modal]="true" [style]="{ width: '500px' }">
+  <h4>{{ userName }}</h4>
+  <h5 *ngIf="selectedStall">{{ selectedStall.name }}</h5>
+
+  <form [formGroup]="reviewForm" class="p-fluid">
+    <div class="p-field">
+      <p-rating formControlName="rating" [cancel]="false"></p-rating>
+    </div>
+    <div class="p-field">
+      <textarea pInputTextarea formControlName="comment" rows="4" placeholder="Mô tả trải nghiệm của bạn"></textarea>
+    </div>
+    <div class="p-field">
+      <p-fileUpload name="images[]" customUpload="true" multiple (onSelect)="onSelectFiles($event)"
+        chooseLabel="Thêm ảnh và video"></p-fileUpload>
+    </div>
+  </form>
+
+  <p-footer>
+    <button pButton label="Hủy" icon="pi pi-times" class="p-button-text" (click)="dialogReviewVisible = false"></button>
+    <button pButton label="Đăng" icon="pi pi-check" (click)="submitReview()" [disabled]="reviewForm.invalid"></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Chia sẻ sạp" [(visible)]="shareDialogVisible" [modal]="true" [style]="{ width: '450px' }">
+  <h5 *ngIf="selectedStall">{{ selectedStall.name }}</h5>
+
+  <div *ngIf="selectedStall" class="share-buttons">
+    <a [href]="getShareLinks(selectedStall).fb" target="_blank">
+      <button pButton icon="pi pi-facebook" label="Chia sẻ Facebook" class="p-button-sm p-button-primary"></button>
+    </a>
+    <a [href]="getShareLinks(selectedStall).twitter" target="_blank">
+      <button pButton icon="pi pi-twitter" label="Chia sẻ Twitter" class="p-button-sm p-button-info"></button>
+    </a>
+    <a [href]="getShareLinks(selectedStall).zalo" target="_blank">
+      <button pButton icon="pi pi-comments" label="Chia sẻ Zalo" class="p-button-sm p-button-help"></button>
+    </a>
+  </div>
+
+  <p-footer>
+    <button pButton label="Đóng" icon="pi pi-times" class="p-button-text" (click)="shareDialogVisible = false"></button>
+  </p-footer>
+
+</p-dialog>

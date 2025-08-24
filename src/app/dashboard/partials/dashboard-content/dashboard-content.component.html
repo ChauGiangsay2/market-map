@@ -1,0 +1,104 @@
+<tbody>
+    <!-- việc cần làm  -->
+    <tr *ngFor="let group of listGroup  ;let i = index">
+        <th scope="row" colspan="2">
+            <div class="td-work workToBeDone ">
+                <div class="workToBeDone-title">
+                    <i class="fa-solid fa-caret-right padding-l-5"></i> <span class="ml-5">{{group.title}}
+                    </span>
+                </div>
+                <div class="workToBeDone-groupBtn">
+                    <ng-container [ngTemplateOutlet]="workOptions" [ngTemplateOutletContext]="{ group: group }">
+
+                    </ng-container>
+                    <button class="btn btn-blue btn-work__count ml-5 box-shadow-inner">
+                        <span class="span-btn-drop">30<i class="fa-solid fa-caret-down ml-5"></i></span>
+                    </button>
+
+                </div>
+            </div>
+        </th>
+        <td class="text-center">
+            <button class="btn btn-blue btn-work__count ml-5">
+                <span class="span-btn-drop">30<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-blue btn-work__count ml-5">
+                <span class="span-btn-drop">30<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-blue btn-work__count ml-5">
+                <span class="span-btn-drop">30<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-blue btn-work__count ml-5">
+                <span class="span-btn-drop">30<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </td>
+        <td class="text-center">
+
+        </td>
+        <td class="text-center">
+            <button  *ngIf="i == 0" class="btn btn-work__mission btn-green box-shadow-inner">
+                <span class="span-btn-drop">Nhiệm vụ<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </td>
+        <td class="text-center">
+            <button  *ngIf="i == 0" class="btn btn-blue btn-work__mission box-shadow-inner">
+                <span class="span-btn-drop">Đang Làm<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </td>
+    </tr>
+</tbody>
+
+
+<ng-template #workOptions let-group="group">
+    <ng-container [ngSwitch]="group.actionTemplate">
+
+        <ng-container *ngSwitchCase="'Report'" [ngTemplateOutlet]="actionFastReportTemplate" [ngTemplateOutletContext]="{ group: group }"></ng-container>
+
+        <ng-container *ngSwitchCase="'Change'" [ngTemplateOutlet]="actionChangeTemplate" [ngTemplateOutletContext]="{ group: group }"></ng-container>
+
+        <ng-container *ngSwitchCase="'Approve'" [ngTemplateOutlet]="actionApproveTemplate" [ngTemplateOutletContext]="{ group: group }"></ng-container>
+
+    </ng-container>
+
+  </ng-template>
+<!-- ---------------------------------------------Báo Cáo Nhanh ------------------------------------------------------------ -->
+<ng-template #actionFastReportTemplate let-group="group">
+
+    <ng-container *ngIf="group.listDisplay && group.listDisplay.length > 0">
+
+        <button class="btn btn-orange btn-work__report box-shadow-inner">
+            <span class="span-btn-drop"><i aria-hidden="true" class="fa fa-tasks"></i> Báo Cáo Công
+                Việc </span>
+        </button>
+    </ng-container>
+
+</ng-template>
+<!-- --------------------------------------------- End ------------------------------------------------------------ -->
+
+   <!-- ---------------------------------------------viec thay doi lien quan ------------------------------------------------------------ -->
+   <ng-template #actionChangeTemplate let-group="group">
+        <ng-container>
+            <button class="btn btn-light-blue box-shadow-inner plr-10">
+                <span class="span-btn-drop"><i class="fa-regular fa-calendar-check"></i> Lựa chọn<i class="fa-solid fa-caret-down ml-5"></i></span>
+            </button>
+        </ng-container>
+  </ng-template>
+  <!-- --------------------------------------------- End ------------------------------------------------------------ -->
+
+
+     <!-- ---------------------------------------------viec thay chờ duyệt ------------------------------------------------------------ -->
+  <ng-template #actionApproveTemplate let-group="group">
+    <ng-container>
+        <button class="btn btn-blue btn-light-green box-shadow-inner plr-10">
+            <span class="span-btn-drop"><i class="fa-solid fa-rocket"></i>
+                Duyệt nhanh</span>
+        </button>
+    </ng-container>
+  </ng-template>
+  <!-- ---------------------------------------------end------------------------------------------------------------ -->

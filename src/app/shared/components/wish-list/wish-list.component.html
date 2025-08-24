@@ -1,0 +1,60 @@
+<!-- BẢN ĐỒ -->
+<div class="map-container"
+     leaflet
+     [leafletOptions]="options"
+     (leafletMapReady)="onMapReady($event)"
+     (leafletClick)="onMapClick($event)">
+</div>
+
+<!-- FORM THÊM ĐIỂM -->
+<p-dialog header="Thêm điểm mới"
+          [(visible)]="dialogVisible"
+          [modal]="true"
+          [style]="{ width: '400px' }">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="p-field">
+      <label for="name">Tên điểm</label>
+      <input id="name" pInputText formControlName="name" />
+    </div>
+    <div class="p-field">
+      <label>Địa chỉ</label>
+      <input pInputText [value]="clickedAddress()" disabled />
+    </div>
+    <div class="p-field">
+      <label for="description">Miêu tả</label>
+      <textarea id="description"
+                pInputTextarea
+                rows="4"
+                formControlName="description"></textarea>
+    </div>
+    <div class="p-field">
+      <label>Hình ảnh</label>
+      <p-fileUpload
+        name="images[]"
+        customUpload="true"
+        (onSelect)="onSelectFiles($event)"
+        [multiple]="true"
+        chooseLabel="Chọn ảnh"
+        uploadLabel="Tải lên">
+      </p-fileUpload>
+    </div>
+  </form>
+  <p-footer>
+    <button pButton label="Hủy"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="dialogVisible = false"></button>
+    <button pButton label="Lưu"
+            icon="pi pi-check"
+            (click)="save()"
+            [disabled]="form.invalid"></button>
+  </p-footer>
+</p-dialog>
+
+<!-- DANH SÁCH SẠP HÀNG -->
+<p-dialog header="Chợ Bà Chiểu"
+          [(visible)]="baChieuDialogVisible"
+          [modal]="true"
+          [style]="{ width: '600px', height: '500px' }">
+  <app-market-stall-list [stalls]="vendors"></app-market-stall-list>
+</p-dialog>

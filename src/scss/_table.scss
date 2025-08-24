@@ -1,0 +1,51 @@
+
+@for $i from 1 through 100 {
+    .th-#{$i} {
+        width: calc(#{$i} * 1%);
+    }
+}
+
+
+table {
+
+    border-collapse: collapse; /* Gộp các viền lại cho rõ ràng hơn */
+    width: 100%;
+
+    &.dashed {
+        tbody {
+            tr {
+                td {
+                    border-style: dashed !important;
+                }
+            }
+            tr:nth-child(5n) {
+                td {
+                    border-bottom-style: solid !important;
+                    border-bottom-color: #ccc !important;
+                }
+            }
+        }
+    }
+
+    &.middle {
+        tr {
+            th, td {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.p-treetable {
+    .p-treetable-header {
+        border: none;
+        background: none;
+    }
+} 
+
+.table th, .table td {
+    // border: 1px dotted rgba(0, 0, 0, 0.22);
+    border: 1px dotted #d1d4d6;
+    padding: 8px; /* Thêm padding để nội dung có khoảng cách với viền */
+    text-align: left; /* Căn trái cho đẹp */
+}

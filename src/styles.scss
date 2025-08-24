@@ -1,0 +1,261 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/scss/bootstrap-grid";
+@import "bootstrap/scss/bootstrap-utilities";
+@import "bootstrap/scss/forms";
+
+// qill css for editor
+@import "quill/dist/quill.core.css";
+@import "quill/dist/quill.snow.css";
+
+// prime css
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+// import spacing custom
+// @import "scss/spacing";
+
+// import font size custom
+@import "scss/font-size";
+
+// import table custom
+@import "scss/table";
+
+// import scrollbar custom
+@import "scss/scrollbar";
+
+// import color custom
+@import "scss/color";
+
+// dialog custom
+@import "scss/dialog";
+
+
+.ng-invalid .invalid-feedback {
+    display: block;
+}
+
+html {
+    font-size: 13px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #3b4151;
+    font-size: 13px;
+    // font-weight: 400;
+    // line-height: 20px;
+    font-family: Roboto, sans-serif;
+    // letter-spacing: .0178571429em;
+}
+
+.input-base {
+    width: 100%;
+    height: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* Đường viền bình thường */
+}
+
+.search-input {
+    border: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+/* Đường viền focus chạy từ giữa ra */
+.input-base::after {
+    content: "";
+    position: absolute;
+    left: 50%; /* Bắt đầu từ giữa */
+    bottom: -2px; /* Đặt ngay dưới viền mặc định */
+    height: 2px;
+    width: 0; /* Bắt đầu với độ rộng 0 */
+    background-color: #22c55e; /* Màu gạch chân khi focus */
+    transition: width 0.2s ease, left 0.2s ease; /* Hiệu ứng chuyển động */
+    transform: translateX(-50%); /* Để giữ đường viền ở giữa */
+}
+
+/* Mở rộng đường viền khi input bên trong container được focus */
+.input-base:focus-within::after {
+    width: 100%; /* Mở rộng từ giữa ra */
+}
+
+/* Đường viền thu lại đồng đều khi không focus */
+.input-base:not(:focus-within)::after {
+    width: 0; /* Thu lại về kích thước 0 */
+    left: 50%; /* Giữ đường viền ở giữa khi thu lại */
+    transform: translateX(-50%); /* Để giữ đường viền ở giữa */
+}
+.btn{
+    background: unset;
+    border: unset;
+    color: black;
+    min-width: 80px;
+    min-height: 25px;
+}
+.btn-light{
+    color: black;
+}
+.p-button:focus {
+    outline: none !important;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    border: none;
+} 
+.plr-10{
+    padding: 0 15px;
+
+}
+
+.dashboard{
+    width: 100%;
+    background-color: #444d58;
+}
+.dashboard-header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    align-items: center;
+}
+.dashboard-menu{
+    margin: unset;
+}
+.dashboard-menu__item{
+    list-style: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    float: left;
+    font-size: 15px;
+}
+.dashboard-menu__item > i {
+    margin-right: 3px;
+}
+.active{
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #1f2124;
+    font-weight: 500;
+}
+
+
+.table {
+    border-collapse: collapse; /* Gộp các viền lại cho rõ ràng hơn */
+    width: 100%;
+}
+
+.table th, .table td {
+    // border: 1px dotted rgba(0, 0, 0, 0.22);
+    border: 1px dotted #d1d4d6;
+    padding: 8px; /* Thêm padding để nội dung có khoảng cách với viền */
+    text-align: left; /* Căn trái cho đẹp */
+}
+
+
+.input-search__dashboard{
+    border-bottom: unset;
+    margin-left: 7px;
+    width: 53%;
+    height: 100%;
+}
+.input-search__dashboard >i{
+    font-size: 1rem;
+    color: #c5cdda;
+    margin-top: 3px;
+    font-size: 15px; 
+}
+.input-search__dashboard >i ::before{
+ margin-top: 3px;
+}
+.input-search__dashboard >input{
+    font-size: 1rem;
+    margin-left:5px;
+    // color: #c5cdda;
+    font-size: 14px;
+    padding: 8px;
+}
+.dashboard-search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+// .btn-lv{
+//     width: 80px;
+// }
+// .btn-view-lv{
+//     width: 100px;
+// 
+.btn-white{
+    background: white;
+}
+.dashboard-table >app-dashboard-content > tbody > tr {
+    background: #f0faff
+}
+.td-work{
+    height: 30px;
+    // background: #e0fcff
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    width: 100%;
+    justify-content: space-between;
+}
+.ml-5{
+ margin-left: 5px;
+}
+.btn{
+    height: 25px;
+    cursor: pointer;
+    
+}
+.btn-work__count{
+    min-width: 20px 
+}
+.btn-orange{
+    background-color: #e87e04;
+    color: white;
+    border-radius: 3px;
+}
+.btn-green {
+    background-color: #36bd84;
+    color: white;
+    border-radius: 3px;
+}
+.btn-blue{
+    background-color: #217ebd;
+    color: white;
+    border-radius: 3px;
+}  
+.btn-work__report{
+    width: 150px;
+}
+.btn-work__mission{
+    width: 100px
+}
+.btn-red{
+    background-color: #e7505a;
+    color: white;
+    border-radius: 3px;
+}
+.box-shadow-inner{
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.btn-light-blue {
+    background: #32c5d2;
+    color: white;
+    border-radius: 3px;
+}
+.btn-light-green{
+    background-color: #1BBC9F;
+    color: white;
+    border-radius: 3px;
+
+}

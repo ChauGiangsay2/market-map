@@ -1,0 +1,54 @@
+<p-toolbar
+  [style]="{
+    'border-radius': '0',
+    padding: '0.75rem 1.25rem',
+    border: 'none',
+    'background-color': '#fff'
+  }"
+>
+  <ng-template pTemplate="start">
+<img src="https://cdn-icons-png.flaticon.com/512/235/235861.png" width="40" />
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="d-flex align-items-center gap-2">
+      <ng-container *ngIf="isLoggedIn; else notLogin">
+        <p-splitButton
+          [label]="userName"
+          icon="pi pi-user"
+          size="small"
+          [model]="listRoute"
+          outlined="true"
+          raised
+        ></p-splitButton>
+      </ng-container>
+      <ng-template #notLogin>
+        <p-button
+          label="Đăng nhập"
+          icon="pi pi-sign-in"
+          size="small"
+          raised
+          (onClick)="openLoginDialog()"
+        ></p-button>
+      </ng-template>
+    </div>
+  </ng-template>
+</p-toolbar>
+
+<!-- Login Dialog -->
+<p-dialog header="Đăng nhập" [(visible)]="showLoginDialog" [modal]="true" [style]="{ width: '300px' }">
+  <div class="p-fluid">
+    <div class="field">
+      <label for="username">Tài khoản</label>
+      <input id="username" type="text" pInputText [(ngModel)]="loginUsername" />
+    </div>
+    <div class="field mt-2">
+      <label for="password">Mật khẩu</label>
+      <input id="password" type="password" pPassword [(ngModel)]="loginPassword" [feedback]="false" />
+    </div>
+    <div class="mt-3 d-flex justify-content-end gap-2">
+      <p-button label="Hủy" (onClick)="showLoginDialog = false" class="p-button-text"></p-button>
+      <p-button label="Đăng nhập" (onClick)="submitLogin()" [disabled]="!loginUsername || !loginPassword"></p-button>
+    </div>
+  </div>
+</p-dialog>

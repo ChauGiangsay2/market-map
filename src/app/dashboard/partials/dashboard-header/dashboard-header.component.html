@@ -1,0 +1,111 @@
+<thead>
+    <tr>
+        <!-- search-box -->
+        <th scope="col" class="th-30">
+            <div class="dashboard-search">
+                <div class="input-base input-search__dashboard">
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="search-input" pInputText placeholder="Tìm kiếm công việc ...." />
+                </div>
+                <p-dropdown class="btn-lv" [options]="listLevel" [(ngModel)]="listLevel" optionLabel="name"
+                    placeholder="0"></p-dropdown>
+                <p-dropdown class="btn-view-lv" [options]="listViewLevel" optionLabel="name"
+                    placeholder="Xem đến 0 bậc"></p-dropdown>
+                <p-button icon="pi pi-refresh" [rounded]="true" [text]="true" [raised]="true" (onClick)="reloadData()"></p-button>
+            </div>
+        </th>
+        <!-- end -->
+
+        <!-- user-handel -->
+        <th class="th-11">
+            <div class="d-flex align-items-center justify-content-between col-12">
+                <p-splitButton label="0" [model]="listLevel" severity="secondary" text class="btn-white" raised
+                    placeholder="0"></p-splitButton>
+                <span class="text-center">
+                    <span>Người Xử lý</span>
+                    <br>
+                    <span>(Tất cả)</span>
+                </span>
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </th>
+        <!-- end -->
+
+        <!-- task trước tuần -->
+        <th class="th-6 text-center">
+            <span>....</span>
+            <br>
+            <span>03-11 CN</span>
+        </th>
+        <!-- end -->
+
+        <!-- tuần hiện tại -->
+        <th class="th-6 text-center">
+            <span>04-11 T2</span>
+            <br>
+            <span>10-11 CN</span>
+        </th>
+        <!-- end -->
+
+        <!-- tuần tới 1 -->
+        <th class="th-6 text-center">
+            <span>11-11 T2</span>
+            <br>
+            <span>17-11 CN</span>
+        </th>
+        <!-- end -->
+
+        <!-- tuần tới 2 -->
+        <th class="th-6 text-center">
+            <span>18-11 T2</span>
+            <br>
+            <span>30-11 T7</span>
+        </th>
+        <!-- end -->
+
+        <!-- loại công việc -->
+        <th class="th-11">
+            <div class="d-flex align-items-center justify-content-between col-12">
+                <p-splitButton label="0" [model]="listLevel" severity="secondary" text class="btn-white" raised
+                    placeholder="0"></p-splitButton>
+                <span class="text-center">
+                    <span>Loại công việc</span>
+                    <br>
+                    <span>(Tất cả)</span>
+                </span>
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </th>
+        <!-- end -->
+
+        <!-- loại định kỳ -->
+        <th class="th-10">
+            <div class="d-flex align-items-center justify-content-between col-12">
+                <p-splitButton label="0" [model]="listLevel" severity="secondary" text class="btn-white" raised
+                    placeholder="0"></p-splitButton>
+                <span class="text-center">
+                    <span>Loại định kỳ</span>
+                    <br>
+                    <span>(Tất cả)</span>
+                </span>
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </th>
+        <!-- end -->
+
+        <!-- quy trình -->
+        <th class="th-10">
+            <div class="d-flex align-items-center justify-content-between col-12">
+                <p-splitButton label="0" [model]="listLevel" severity="secondary" text class="btn-white" raised
+                    placeholder="0"></p-splitButton>
+                <span class="text-center">
+                    <span>Quy trình</span>
+                    <br>
+                    <span>(Tất cả)</span>
+                </span>
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </th>
+        <!-- end -->
+    </tr>
+</thead>

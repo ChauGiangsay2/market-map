@@ -1,0 +1,7 @@
+@for(error of errorCode; track error) {
+<small class="invalid-feedback" *ngIf="this.control?.hasError(error.code)">
+  "{{ label }}" {{ error.message }}
+  {{ error.keyData ? (this.control?.errors)![error.code][error.keyData] : "" }}
+</small>
+
+}

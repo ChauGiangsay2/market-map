@@ -1,0 +1,6 @@
+@for $i from 6 through 30 {
+    // margin
+    .fs-#{$i} {
+        font-size: #{$i}px !important;
+    }
+}

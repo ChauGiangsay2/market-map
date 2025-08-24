@@ -1,0 +1,872 @@
+<form [formGroup]="form">
+  <div class="row p-fluid">
+    <!-- begin loop -->
+    <ng-container *ngFor="let control of controls">
+      <!-- begin wrap control -->
+      <div class="{{ control.cssClass }} mb-x">
+        <!-- begin switch -->
+        <ng-container [ngSwitch]="control.type">
+          <!-- begin text -->
+
+          <ng-container *ngSwitchCase="TYPE.TEXT">
+            <label for="{{ control.id }}">{{ control.label }}</label>
+
+            <input
+              [variant]="control.variant || defaultAttributeValue.variant"
+              pInputText
+              id="{{ control.id }}"
+              [attr.aria-describedby]="control.id + '-help'"
+              formControlName="{{ control.key }}"
+              placeholder="{{ control.placeholder }}"
+              class="input-xs"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              (change)="onChange($event, control)"
+            />
+          </ng-container>
+
+          <!--  end text -->
+
+          <!-- begin number -->
+          <ng-container *ngSwitchCase="TYPE.NUMBER">
+            <label for="{{ control.id }}">{{ control.label }}</label>
+            <p-inputNumber
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [inputId]="control.id"
+              mode="decimal"
+              [showButtons]="control.showButtons || true"
+              [buttonLayout]="control.buttonLayout || 'stacked'"
+              [step]="control.step || defaultAttributeValue.step"
+              [min]="control.min"
+              [max]="control.max"
+              [prefix]="control.prefix"
+              [suffix]="control.suffix"
+              [allowEmpty]="control.allowEmpty || true"
+              placeholder="{{ control.placeholder }}"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [useGrouping]="control.useGrouping || true"
+              [maxFractionDigits]="control.maxFractionDigits || 0"
+              [minFractionDigits]="control.minFractionDigits || 0"
+              [locale]="control.locale || defaultAttributeValue.locale"
+              [decrementButtonClass]="control.decrementButtonClass || ''"
+              [incrementButtonClass]="control.incrementButtonClass || ''"
+              [incrementButtonIcon]="control.incrementButtonIcon || ''"
+              [decrementButtonIcon]="control.decrementButtonIcon || ''"
+              (ngModelChange)="onChange($event, control)"
+            />
+          </ng-container>
+          <!-- end number -->
+
+          <!-- begin currency -->
+          <ng-container *ngSwitchCase="TYPE.CURRENCY">
+            <label for="{{ control.id }}">{{ control.label }}</label>
+            <p-inputNumber
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [inputId]="control.id"
+              mode="currency"
+              [showButtons]="control.showButtons || true"
+              [buttonLayout]="control.buttonLayout || 'stacked'"
+              [step]="control.step || defaultAttributeValue.step"
+              [min]="control.min"
+              [max]="control.max"
+              [prefix]="control.prefix"
+              [suffix]="control.suffix"
+              [allowEmpty]="control.allowEmpty || true"
+              placeholder="{{ control.placeholder }}"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [currency]="control.currency || 'VND'"
+              [locale]="control.locale || defaultAttributeValue.locale"
+              [useGrouping]="control.useGrouping || true"
+              [maxFractionDigits]="control.maxFractionDigits || 0"
+              [minFractionDigits]="control.minFractionDigits || 0"
+              [currencyDisplay]="control.currencyDisplay || 'symbol'"
+              [decrementButtonClass]="control.decrementButtonClass || ''"
+              [incrementButtonClass]="control.incrementButtonClass || ''"
+              [incrementButtonIcon]="control.incrementButtonIcon || ''"
+              [decrementButtonIcon]="control.decrementButtonIcon || ''"
+              (ngModelChange)="onChange($event, control)"
+            />
+          </ng-container>
+          <!-- end currency -->
+
+          <!-- begin textarea -->
+          <ng-container *ngSwitchCase="TYPE.TEXTAREA">
+            <label for="{{ control.key }}">{{ control.label }}</label>
+            <textarea
+              [variant]="control.variant || defaultAttributeValue.variant"
+              id="{{ control.id }}"
+              rows="{{ control.rows ? control.rows : 3 }}"
+              cols="{{ control.cols ? control.cols : 20 }}"
+              pInputTextarea
+              formControlName="{{ control.key }}"
+              [autoResize]="control.autoResize || true"
+              placeholder="{{ control.placeholder }}"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              (onResize)="onResize($event, control)"
+              (ngModelChange)="onChange($event, control)"
+            >
+            </textarea>
+          </ng-container>
+          <!-- end textarea -->
+
+          <!-- begin input switch -->
+          <ng-container *ngSwitchCase="TYPE.SWITCH">
+            <label
+              class="control-label fw-bold {{
+                control.inline ? 'd-inline-block mb-0 me-2' : 'd-block'
+              }}"
+              for="{{ control.id }}"
+              >{{ control.label }}</label
+            >
+            <p-inputSwitch
+              [inputId]="control.id"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              (onChange)="onChange($event, control)"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+            />
+          </ng-container>
+          <!-- end input switch -->
+
+          <!-- begin input mask -->
+          <ng-container *ngSwitchCase="TYPE.INPUT_MASK">
+            <label for="{{ control.id }}">{{ control.label }}</label>
+            <p-inputMask
+              [variant]="control.variant || defaultAttributeValue.variant"
+              mask="{{ control.mask }}"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [inputId]="control.id"
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              placeholder="{{ control.placeholder }}"
+              [slotChar]="control.slotChar || '_'"
+              [autocomplete]="control.autocomplete"
+              [characterPattern]="control.characterPattern || ''"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              (onComplete)="onComplete($event, control)"
+              (onClear)="onClear($event, control)"
+            />
+          </ng-container>
+          <!-- end input mask -->
+
+          <!-- begin checkbox -->
+          <ng-container *ngSwitchCase="TYPE.CHECKBOX">
+            <p-checkbox
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [label]="control.label"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [inputId]="control.id"
+              [binary]="true"
+            />
+          </ng-container>
+          <!-- end checkbox -->
+
+          <!-- begin radio -->
+          <ng-container *ngSwitchCase="TYPE.RADIO">
+            <label for="{{ control.id }}" class="control-label fw-bold">{{
+              control.label
+            }}</label>
+
+            <div class="d-flex gap-4">
+              <ng-container
+                *ngFor="let option of control.options; let index = index"
+              >
+                <p-radioButton
+                  [variant]="control.variant || defaultAttributeValue.variant"
+                  formControlName="{{ control.key }}"
+                  [styleClass]="control.styleClass || ''"
+                  [label]="option.name"
+                  [inputId]="option.id"
+                  [disabled]="option.disabled || defaultAttributeValue.disabled"
+                  [name]="control.key"
+                  [value]="option.id"
+                />
+              </ng-container>
+            </div>
+          </ng-container>
+          <!-- end radio -->
+
+          <!-- begin multiple checkbox -->
+          <ng-container *ngSwitchCase="TYPE.MULTIPLE_CHECKBOX">
+            <label for="{{ control.id }}" class="control-label fw-bold">{{
+              control.label
+            }}</label>
+
+            <div class="d-flex gap-4">
+              <ng-container
+                *ngFor="let option of control.options; let index = index"
+              >
+                <p-checkbox
+                  [variant]="control.variant || defaultAttributeValue.variant"
+                  formControlName="{{ control.key }}"
+                  [styleClass]="control.styleClass || ''"
+                  [label]="option.name"
+                  [inputId]="option.id"
+                  [disabled]="option.disabled || defaultAttributeValue.disabled"
+                  [name]="control.key"
+                  [value]="option.id"
+                />
+              </ng-container>
+            </div>
+          </ng-container>
+          <!-- end multiple checkbox -->
+
+          <!-- begin date picker -->
+          <ng-container *ngSwitchCase="TYPE.DATE_PICKER">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-calendar
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [dateFormat]="control.dateFormat || 'dd/mm/yy'"
+              [readonlyInput]="true"
+              [showButtonBar]="control.showButtonBar || false"
+              [showTime]="control.showTime || false"
+              [selectionMode]="control.selectionMode || 'single'"
+              [hourFormat]="
+                control.hourFormat || defaultAttributeValue.hourFormat
+              "
+              [inputId]="control.id"
+              [inline]="control.inline || false"
+              [view]="control.view || 'date'"
+            />
+          </ng-container>
+          <!-- end date picker -->
+
+          <!-- begin time picker -->
+          <ng-container *ngSwitchCase="TYPE.TIME_PICKER">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-calendar
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [readonlyInput]="true"
+              [timeOnly]="true"
+              [hourFormat]="
+                control.hourFormat || defaultAttributeValue.hourFormat
+              "
+              [inputId]="control.id"
+              [showSeconds]="control.showSeconds || false"
+            />
+          </ng-container>
+          <!-- end time picker -->
+
+          <!-- begin select -->
+          <ng-container *ngSwitchCase="TYPE.SELECT">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-dropdown
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [options]="control.options"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [optionValue]="
+                control.optionValue || defaultAttributeValue.optionValue
+              "
+              placeholder="{{ control.placeholder }}"
+              [inputId]="control.id"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              [lazy]="control.lazy || defaultAttributeValue.lazy"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [virtualScroll]="
+                control.virtualScroll || defaultAttributeValue.virtualScroll
+              "
+              [virtualScrollItemSize]="
+                control.vitualScrollItemSize ||
+                defaultAttributeValue.vitualScrollItemSize
+              "
+              [virtualScrollOptions]="
+                control.vitualScrollOptions || vitualScrollOptions
+              "
+              [loading]="control.loading || false"
+              [scrollHeight]="
+                control.scrollHeight || defaultAttributeValue.scrollHeight
+              "
+              [resetFilterOnHide]="true"
+              [filter]="control.filter || defaultAttributeValue.filter"
+              [filterBy]="control.filterBy || defaultAttributeValue.filterBy"
+              [filterValue]="control.filterValue || null"
+              [filterMatchMode]="
+                control.filterMatchMode || defaultAttributeValue.filterMatchMode
+              "
+              [optionGroupLabel]="
+                control.optionGroupLabel ||
+                defaultAttributeValue.optionGroupLabel
+              "
+              [optionGroupChildren]="
+                control.optionGroupChildren ||
+                defaultAttributeValue.optionGroupChildren
+              "
+              [optionDisabled]="
+                control.optionDisabled || defaultAttributeValue.optionDisabled
+              "
+              [optionDisabled]="'disabled'"
+              (onLazyLoad)="onLazyLoad($event, control)"
+              (onFilter)="onFilter($event, control)"
+              (onChange)="onChange($event, control)"
+              (onClear)="onClear($event, control)"
+            />
+          </ng-container>
+          <!-- end select -->
+
+          <!-- begin chips -->
+          <ng-container *ngSwitchCase="TYPE.CHIP">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-chips
+              formControlName="{{ control.key }}"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              [styleClass]="control.styleClass || ''"
+              [inputId]="control.id"
+              [addOnTab]="control.addOnTab || defaultAttributeValue.addOnTab"
+              [addOnBlur]="control.addOnBlur || defaultAttributeValue.addOnBlur"
+              [allowDuplicate]="control.allowDuplicate || false"
+              [max]="control.max || defaultAttributeValue.max"
+              [field]="control.field || defaultAttributeValue.field"
+              (onBlur)="onBlur($event, control)"
+              (onRemove)="onRemove($event, control)"
+              (onAdd)="onAdd($event, control)"
+              (onChipClick)="onChipClick($event, control)"
+              (onClear)="onClear($event, control)"
+            />
+          </ng-container>
+          <!-- end chips -->
+
+          <!-- begin editor -->
+          <ng-container *ngSwitchCase="TYPE.EDITOR">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-editor
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [style]="{ height: '320px' }"
+            />
+          </ng-container>
+          <!-- end editor -->
+
+          <!-- begin rating -->
+          <ng-container *ngSwitchCase="TYPE.RATING">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-rating
+              formControlName="{{ control.key }}"
+              [stars]="control.stars || 5"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [cancel]="control.cancel || false"
+              (onRate)="onRate($event, control)"
+              (onCancel)="onCancel($event, control)"
+            >
+              <ng-template
+                pTemplate="cancelicon"
+                *ngIf="control.cancel && control.templateCancel"
+              >
+                <span [innerHTML]="control.templateCancel"></span>
+              </ng-template>
+              <ng-template pTemplate="onicon" *ngIf="control.templateIconOn">
+                <span [innerHTML]="control.templateIconOn"></span>
+              </ng-template>
+              <ng-template pTemplate="officon" *ngIf="control.templateIconOff">
+                <span [innerHTML]="control.templateIconOff"></span>
+              </ng-template>
+            </p-rating>
+          </ng-container>
+          <!-- end rating -->
+
+          <!-- begin slider -->
+          <ng-container *ngSwitchCase="TYPE.SLIDER">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <input
+              type="text"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              pInputText
+              [value]="form.get(control.key)?.value"
+              class="w-full mb-3"
+              (change)="onRangeSliderChange($event, control)"
+            />
+            <p-slider
+              [step]="control.step || defaultAttributeValue.step"
+              formControlName="{{ control.key }}"
+              [styleClass]="control.styleClass || ''"
+              [range]="control.range || false"
+              [orientation]="control.orientation || 'horizontal'"
+              [animate]="control.animate || false"
+              [min]="control.min || 0"
+              [max]="control.max || 100"
+              (onSlideEnd)="onSlideEnd($event, control)"
+              (onChange)="onChange($event, control)"
+            />
+          </ng-container>
+          <!-- end slider -->
+
+          <!-- begin otp -->
+          <ng-container *ngSwitchCase="TYPE.OTP">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-inputOtp
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [integerOnly]="control.integerOnly || false"
+              [length]="control.length || 6"
+              [mask]="control.maskOTP || false"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              (onChange)="onChange($event, control)"
+            />
+          </ng-container>
+          <!-- end otp -->
+
+          <!-- begin multi select -->
+          <ng-container *ngSwitchCase="TYPE.MULTI_SELECT">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+
+            <p-multiSelect
+              [options]="control.options"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [optionValue]="
+                control.optionValue || defaultAttributeValue.optionValue
+              "
+              placeholder="{{ control.placeholder }}"
+              [inputId]="control.id"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [display]="control.display || 'chip'"
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [virtualScroll]="
+                control.virtualScroll || defaultAttributeValue.virtualScroll
+              "
+              [virtualScrollItemSize]="
+                control.vitualScrollItemSize ||
+                defaultAttributeValue.vitualScrollItemSize
+              "
+              [virtualScrollOptions]="
+                control.vitualScrollOptions || vitualScrollOptions
+              "
+              [loading]="control.loading || false"
+              [scrollHeight]="
+                control.scrollHeight || defaultAttributeValue.scrollHeight
+              "
+              [resetFilterOnHide]="true"
+              [filter]="control.filter || defaultAttributeValue.filter"
+              [filterBy]="control.filterBy || defaultAttributeValue.filterBy"
+              [filterMatchMode]="
+                control.filterMatchMode || defaultAttributeValue.filterMatchMode
+              "
+              [filterValue]="control.filterValue || null"
+              [group]="control.group || defaultAttributeValue.group"
+              [autocomplete]="control.autocomplete || 'off'"
+              [optionGroupLabel]="
+                control.optionGroupLabel ||
+                defaultAttributeValue.optionGroupLabel
+              "
+              [optionGroupChildren]="
+                control.optionGroupChildren ||
+                defaultAttributeValue.optionGroupChildren
+              "
+              [optionDisabled]="
+                control.optionDisabled || defaultAttributeValue.optionDisabled
+              "
+              [maxSelectedLabels]="control.maxSelectedLabels || 5"
+              [selectedItemsLabel]="
+                control.selectedItemsLabel || '{0} đã được chọn'
+              "
+              [lazy]="control.lazy || defaultAttributeValue.lazy"
+              (onSelectAllChange)="onSelectAllChange($event, control)"
+              (onLazyLoad)="onLazyLoad($event, control)"
+              (onFilter)="onFilter($event, control)"
+              (onChange)="onChange($event, control)"
+              (onClear)="onClear($event, control)"
+            />
+          </ng-container>
+          <!-- end multi select -->
+
+          <!-- begin cascade select -->
+          <ng-container *ngSwitchCase="TYPE.CASCADE_SELECT">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+
+            <p-cascadeSelect
+              [style]="control.style"
+              [options]="control.options"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [optionValue]="
+                control.optionValue || defaultAttributeValue.optionValue
+              "
+              placeholder="{{ control.placeholder }}"
+              [inputId]="control.id"
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [loading]="control.loading || false"
+              [optionGroupLabel]="
+                control.optionGroupLabel ||
+                defaultAttributeValue.optionGroupLabel
+              "
+              [optionGroupChildren]="
+                control.optionGroupChildren ||
+                defaultAttributeValue.optionGroupChildren
+              "
+              [optionDisabled]="
+                control.optionDisabled || defaultAttributeValue.optionDisabled
+              "
+              (onSelectAllChange)="onSelectAllChange($event, control)"
+              (onLazyLoad)="onLazyLoad($event, control)"
+              (onFilter)="onFilter($event, control)"
+              (onChange)="onChange($event, control)"
+              (onClear)="onClear($event, control)"
+            >
+            </p-cascadeSelect>
+          </ng-container>
+          <!-- end cascade select -->
+
+          <!-- begin autocomplete -->
+          <ng-container *ngSwitchCase="TYPE.AUTOCOMPLETE">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+
+            <p-autoComplete
+              [delay]="control.delay || 300"
+              [style]="control.style"
+              [size]="control.size || null"
+              [field]="control.field || defaultAttributeValue.field"
+              [suggestions]="control.options"
+              [multiple]="control.multiple || false"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              formControlName="{{ control.key }}"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [optionValue]="
+                control.optionValue || defaultAttributeValue.optionValue
+              "
+              placeholder="{{ control.placeholder }}"
+              [group]="control.group || defaultAttributeValue.group"
+              [inputId]="control.id"
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [optionGroupLabel]="
+                control.optionGroupLabel ||
+                defaultAttributeValue.optionGroupLabel
+              "
+              [optionGroupChildren]="
+                control.optionGroupChildren ||
+                defaultAttributeValue.optionGroupChildren
+              "
+              [optionDisabled]="
+                control.optionDisabled || defaultAttributeValue.optionDisabled
+              "
+              [scrollHeight]="
+                control.scrollHeight || defaultAttributeValue.scrollHeight
+              "
+              [virtualScroll]="
+                control.virtualScroll || defaultAttributeValue.virtualScroll
+              "
+              [virtualScrollItemSize]="
+                control.vitualScrollItemSize ||
+                defaultAttributeValue.vitualScrollItemSize
+              "
+              [virtualScrollOptions]="
+                control.vitualScrollOptions || vitualScrollOptions
+              "
+              [unique]="control.unique || true"
+              [dropdown]="control.dropdown || false"
+              [forceSelection]="control.forceSelection || true"
+              [lazy]="control.lazy || defaultAttributeValue.lazy"
+              (completeMethod)="onSearch($event, control)"
+              (onLazyLoad)="onLazyLoad($event, control)"
+              (onClear)="onClear($event, control)"
+            >
+            </p-autoComplete>
+          </ng-container>
+          <!-- end autocomplete -->
+
+          <!-- begin keyfilter -->
+          <ng-container *ngSwitchCase="TYPE.KEYFILTER">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <input
+              [readOnly]="control.readonly || defaultAttributeValue.readonly"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              pInputText
+              id="{{ control.id }}"
+              [pKeyFilter]="control.keyFilter || null"
+              formControlName="{{ control.key }}"
+              [pValidateOnly]="control.validateOnly || false"
+            />
+          </ng-container>
+          <!-- end keyfilter -->
+
+          <!-- begin password -->
+          <ng-container *ngSwitchCase="TYPE.PASSWORD">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-password
+              [strongRegex]="
+                control.strongRegex || defaultAttributeValue.strongRegex
+              "
+              [mediumRegex]="
+                control.mediumRegex || defaultAttributeValue.mediumRegex
+              "
+              [toggleMask]="
+                control.toggleMask || defaultAttributeValue.toggleMask
+              "
+              [variant]="control.variant || defaultAttributeValue.variant"
+              [inputId]="control.id"
+              [placeholder]="control.placeholder"
+              [label]="control.label"
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              formControlName="{{ control.key }}"
+              [feedback]="control.feedback || defaultAttributeValue.feedback"
+              (ngModelChange)="onChange($event, control)"
+            >
+              <ng-template pTemplate="header">
+                <ng-container
+                  *ngTemplateOutlet="control.passwordHeaderTemplate || null"
+                ></ng-container>
+              </ng-template>
+
+              <ng-template pTemplate="footer">
+                <ng-container
+                  *ngTemplateOutlet="control.passwordFooterTemplate || null"
+                ></ng-container>
+              </ng-template>
+            </p-password>
+          </ng-container>
+          <!-- end password -->
+
+          <!-- begin listbox -->
+          <ng-container *ngSwitchCase="TYPE.LISTBOX">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-listbox
+              [options]="control.options"
+              formControlName="{{ control.key }}"
+              [optionGroupLabel]="
+                control.optionGroupLabel ||
+                defaultAttributeValue.optionGroupLabel
+              "
+              [optionGroupChildren]="
+                control.optionGroupChildren ||
+                defaultAttributeValue.optionGroupChildren
+              "
+              [optionLabel]="
+                control.optionLabel || defaultAttributeValue.optionLabel
+              "
+              [optionValue]="
+                control.optionValue || defaultAttributeValue.optionValue
+              "
+              [multiple]="control.multiple || false"
+              [group]="control.group || defaultAttributeValue.group"
+              [checkbox]="control.checkbox || true"
+              [filter]="control.filter || defaultAttributeValue.filter"
+              [filterBy]="control.filterBy || defaultAttributeValue.filterBy"
+              [filterMatchMode]="
+                control.filterMatchMode || defaultAttributeValue.filterMatchMode
+              "
+              [filterValue]="control.filterValue || ''"
+              (onSelectAllChange)="onSelectAllChange($event, control)"
+              (onFilter)="onFilter($event, control)"
+              (onChange)="onChange($event, control)"
+            ></p-listbox>
+          </ng-container>
+          <!-- end listbox -->
+
+          <!-- begin select button -->
+          <ng-container *ngSwitchCase="TYPE.SELECT_BUTTON">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-selectButton
+              [multiple]="control.multiple || false"
+              [options]="control.options"
+              formControlName="{{ control.key }}"
+              [optionValue]="
+                control.optionValue || defaultAttributeValue.optionValue
+              "
+              [optionDisabled]="
+                control.optionDisabled || defaultAttributeValue.optionDisabled
+              "
+              [styleClass]="'w-auto'"
+              [allowEmpty]="control.allowEmpty || false"
+              [unselectable]="control.unselectable || false"
+              (onOptionClick)="onOptionClick($event, control)"
+            >
+              <ng-template let-item pTemplate>
+                <i [class]="item.iicon"></i>
+              </ng-template>
+            </p-selectButton>
+          </ng-container>
+          <!-- end listbox -->
+
+          <!-- begin toggle button -->
+          <ng-container *ngSwitchCase="TYPE.TOGGLE_BUTTON">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-toggleButton
+              [inputId]="control.id"
+              formControlName="{{ control.key }}"
+              [onLabel]="control.onLabel || defaultAttributeValue.onLabel"
+              [offLabel]="control.offLabel || defaultAttributeValue.offLabel"
+              [onIcon]="control.onIcon || ''"
+              [offIcon]="control.offIcon || ''"
+              [iconPos]="control.iconPos || 'left'"
+              [styleClass]="control.styleClass || ''"
+              (onChange)="onChange($event, control)"
+            />
+          </ng-container>
+          <!-- end toggle button -->
+
+          <!-- begin tree select -->
+          <ng-container *ngSwitchCase="TYPE.TREE_SELECT">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-treeSelect
+              [inputId]="control.id"
+              formControlName="{{ control.key }}"
+              [options]="control.options"
+              [placeholder]="control.placeholder"
+              [containerStyleClass]="control.containerStyleClass || ''"
+              [selectionMode]="control.selectionModeTreeSelect || 'single'"
+              [style]="control.style"
+              [variant]="control.variant || defaultAttributeValue.variant"
+              [filter]="control.filter || true"
+              [filterBy]="control.filterBy || 'label'"
+              [display]="control.display || 'comma'"
+              [scrollHeight]="
+                control.scrollHeight || defaultAttributeValue.scrollHeight
+              "
+              [showClear]="control.showClear || defaultAttributeValue.showClear"
+              [virtualScroll]="
+                control.virtualScroll || defaultAttributeValue.virtualScroll
+              "
+              [virtualScrollItemSize]="
+                control.vitualScrollItemSize ||
+                defaultAttributeValue.vitualScrollItemSize
+              "
+              [virtualScrollOptions]="
+                control.vitualScrollOptions || vitualScrollOptions
+              "
+              [loading]="control.loading || false"
+              [resetFilterOnHide]="true"
+              [metaKeySelection]="control.metaKeySelection || true"
+              (onNodeExpand)="onNodeExpand($event, control)"
+              (onNodeCollapse)="onNodeCollapse($event, control)"
+              (onNodeSelect)="onNodeSelect($event, control)"
+              (onNodeUnselect)="onNodeUnselect($event, control)"
+              (onFilter)="onFilter($event, control)"
+              (onClear)="onClear($event, control)"
+              (onShow)="onShow($event, control)"
+              (onHide)="onHide($event, control)"
+            />
+          </ng-container>
+          <!-- end tree select -->
+
+          <!-- begin knob -->
+          <ng-container *ngSwitchCase="TYPE.KNOB">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-knob
+              [min]="control.min || 0"
+              [max]="control.max || 100"
+              formControlName="{{ control.key }}"
+              [step]="control.step || defaultAttributeValue.step"
+              [valueTemplate]="control.valueTemplate || '{value}%'"
+              [strokeWidth]="control.strokeWidth || 14"
+              [size]="control.size || 100"
+              [textColor]="
+                control.textColor || 'var(--text-color-secondary, Black)'
+              "
+              [valueColor]="control.valueColor || 'var(--primary-color, Black)'"
+              [rangeColor]="
+                control.rangeColor || 'var(--surface-border, LightGray)'
+              "
+              [readonly]="control.readonly || defaultAttributeValue.readonly"
+              [styleClass]="control.styleClass || ''"
+              [showValue]="control.showValue || true"
+              (onChange)="onChange($event, control)"
+            />
+          </ng-container>
+          <!-- end knob -->
+
+          <!-- begin file upload -->
+          <ng-container *ngSwitchCase="TYPE.FILE_UPLOAD">
+            <label for="{{ control.id }}">
+              {{ control.label }}
+            </label>
+            <p-toast></p-toast>
+            <m-files
+              formControlName="{{ control.key }}"
+              [inputId]="control.id"
+              [multiple]="control.multiple || true"
+              [disabled]="control.disabled || defaultAttributeValue.disabled"
+              [hiddenListFile]="control.hiddenListFile || false"
+              [hidden]="control.hidden || false"
+              [onlyImage]="control.onlyImage || false"
+              [accept]="control.accept || '*'"
+              [maxFileSize]="control.maxFileSize || 2"
+            ></m-files>
+          </ng-container>
+          <!-- end file upload -->
+
+          <ng-container *ngSwitchDefault></ng-container>
+        </ng-container>
+
+        <!-- end switch -->
+
+        <!-- begin errors -->
+        <app-error-messages
+          [label]="control.label"
+          [control]="getControl(control.key)"
+        ></app-error-messages>
+        <!-- end errors -->
+      </div>
+      <!-- end wrap control -->
+    </ng-container>
+    <!-- end loop -->
+  </div>
+</form>

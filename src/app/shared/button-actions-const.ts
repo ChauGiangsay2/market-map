@@ -1,0 +1,61 @@
+export class BtnActionBusiness {
+  static DUYET = 'APPROVE';
+  static TUCHOI = 'DENY';
+  static XOA = 'DELETE';
+
+  static LUU = 'UPDATE';
+
+  static DUYETTAOMOI = 'APPROVECREATE';
+  static HUYTAOMOI = 'CANCELCREATE';
+  static TUCHOITAOMOI = 'DENYCREATE';
+
+  static DUYETHAYDOI = 'APPROVEUPDATE';
+  static HUYTHAYDOI = 'CANCELUPDATE';
+  static TUCHOITHAYDOI = 'DENYUPDATE';
+
+  static BAOCAO = 'REPORT';
+  static DUYETBAOCAO = 'APPROVEREPORT';
+  static HUYBAOCAO = 'CANCELREPORT';
+  static TUCHOIBAOCAO = 'DENYREPORT';
+  static BAOCAOCHODUYET = 'REPORTTODO';
+  static CAPNHAPVIECCANLAM = 'UPDATECREATETODO';
+
+  static TAMDUNG = 'PAUSE';
+  static TAMDUNGCHODUYET = 'PAUSETODO';
+  static DUYETTAMDUNG = 'APPROVEPAUSE';
+  static HUYTAMDUNG = 'CANCELPAUSE';
+  static TUCHOITAMDUNG = 'DENYPAUSE';
+
+  static QUANLYDATA = 'QUANLYDULIEU';
+  static NHAPDATA = 'NHAPDULIEU';
+  static VIEWQUANLYDATA = 'VIEWQUANLYDULIEU';
+  static VIEWNHAPDATA = 'VIEWNHAPDULIEU';
+
+  static TAOTHIETLAP = 'CREATEDEFINE';
+  static CAPNHATTHIETLAP = 'UPDATEDEFINE';
+  static XOATHIETLAP = 'DELETEDEFINE';
+  static TAOGIATRI = 'CREATEVALUE';
+  static CAPNHATGIATRI = 'CREATEVALUE';
+  static XOAGIATRI = 'DELETEVALUE';
+
+  static KHOIDONGLAI = 'RESTART';
+  static DUYETKHOIDONGLAI = 'APPROVERESTART';
+  static HUYKHOIDONGLAI = 'CANCELRESTART';
+  static TUCHOIKHOIDONGLAI = 'DENYRESTART';
+  static CHODUYETKHOIDONGLAI = 'RESTARTTODO';
+
+  static KETTHUC = 'FINISH';
+  static DUYETKETTHUC = 'APPROVEFINISH';
+  static HUYKETTHUC = 'CANCELFINISH';
+  static TUCHOIKETTHUC = 'DENYFINISH';
+  static CHODUYETKETTHUC = 'FINISHTODO';
+
+  static ANTHONGBAO = 'HIDEPOST';
+
+  static checkPermission(listPermission: string[], key: string) {
+    var find = listPermission.find((f) => {
+      return f == key;
+    });
+    return find != null;
+  }
+}
