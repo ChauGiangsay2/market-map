@@ -1,0 +1,85 @@
+<!-- Header -->
+<div class="header-bar">
+  <h2>Quản lý Sạp</h2>
+  <div class="header-actions">
+    <button pButton
+            label="🔔 Có 3 sạp chờ duyệt"
+            class="p-button-warning p-button-sm"
+            (click)="showPending()">
+    </button>
+    <button pButton
+            label="Thêm mới"
+            icon="pi pi-plus"
+            class="p-button-primary p-button-sm"
+            (click)="openNew()">
+    </button>
+  </div>
+</div>
+
+<!-- Bảng danh sách -->
+<p-table [value]="stalls" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Tên sạp</th>
+      <th>Địa chỉ</th>
+      <th>Giờ hoạt động</th>
+      <th>Liên hệ</th>
+      <th>Mặt hàng</th>
+      <th>Rating</th>
+      <th>Hành động</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-stall>
+    <tr>
+      <td>{{ stall.name }}</td>
+      <td>{{ stall.address }}</td>
+      <td>{{ stall.openHours }}</td>
+      <td>{{ stall.contact }}</td>
+      <td>{{ stall.items }}</td>
+      <td>{{ stall.rating }} ⭐</td>
+      <td>
+        <button pButton icon="pi pi-pencil" class="p-button-text" (click)="editStall(stall)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-text p-button-danger" (click)="deleteStall(stall)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Dialog thêm/sửa -->
+<p-dialog [(visible)]="dialogVisible" [modal]="true" [style]="{ width: '500px' }" [header]="isEdit ? 'Sửa sạp' : 'Thêm sạp'">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="p-field">
+      <label for="name">Tên sạp</label>
+      <input id="name" pInputText formControlName="name" />
+    </div>
+    <div class="p-field">
+      <label for="address">Địa chỉ</label>
+      <input id="address" pInputText formControlName="address" />
+    </div>
+    <div class="p-field">
+      <label for="openHours">Giờ hoạt động</label>
+      <input id="openHours" pInputText formControlName="openHours" />
+    </div>
+    <div class="p-field">
+      <label for="contact">Liên hệ</label>
+      <input id="contact" pInputText formControlName="contact" />
+    </div>
+    <div class="p-field">
+      <label for="items">Mặt hàng</label>
+      <input id="items" pInputText formControlName="items" />
+    </div>
+    <div class="p-field">
+      <label for="images">Ảnh (đường dẫn)</label>
+      <input id="images" pInputText formControlName="images" placeholder="assets/example.jpg" />
+    </div>
+    <div class="p-field">
+      <label>Đánh giá</label>
+      <p-rating formControlName="rating" [cancel]="false"></p-rating>
+    </div>
+  </form>
+
+  <p-footer>
+    <button pButton label="Hủy" icon="pi pi-times" class="p-button-text" (click)="dialogVisible=false"></button>
+    <button pButton label="Lưu" icon="pi pi-check" (click)="save()" [disabled]="form.invalid"></button>
+  </p-footer>
+</p-dialog>

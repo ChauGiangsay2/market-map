@@ -10,6 +10,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MarketStallListComponent } from '../market-stall-list/market-stall-list.component';
 import { NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wish-list',
@@ -101,7 +102,11 @@ export class WishListComponent {
     center: latLng(10.77653, 106.70098)
   };
 
-  constructor(private fb: FormBuilder, private zone: NgZone) {}
+constructor(
+  private fb: FormBuilder,
+  private zone: NgZone,
+  private router: Router   // ✅ thêm private
+) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -193,6 +198,9 @@ onDeleteVendor(vendor: any) {
   this.vendors = this.vendors.filter(v => v !== vendor);
 }
 
+goToAdmin() {
+  window.open('/admin', '_blank');
+}
 
 
 }

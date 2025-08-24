@@ -35,3 +35,12 @@
   color: #444;
   margin-bottom: 0.25rem;
 }
+
+.admin-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+

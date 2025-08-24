@@ -47,6 +47,7 @@ export const appConfig: ApplicationConfig = {
     { provide: API_QLCV_URL, useValue: environment.apiQlcv },
     { provide: API_SSO_URL, useValue: environment.apiSSOUrl },
     MessageService
+
   ],
 };
 
