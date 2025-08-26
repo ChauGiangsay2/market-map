@@ -2,16 +2,9 @@
 <div class="header-bar">
   <h2>Quản lý Sạp</h2>
   <div class="header-actions">
-    <button pButton
-            label="🔔 Có 3 sạp chờ duyệt"
-            class="p-button-warning p-button-sm"
-            (click)="showPending()">
+    <button pButton label="🔔 Có 3 sạp chờ duyệt" class="p-button-warning p-button-sm" (click)="showPending()">
     </button>
-    <button pButton
-            label="Thêm mới"
-            icon="pi pi-plus"
-            class="p-button-primary p-button-sm"
-            (click)="openNew()">
+    <button pButton label="Thêm mới" icon="pi pi-plus" class="p-button-primary p-button-sm" (click)="openNew()">
     </button>
   </div>
 </div>
@@ -46,35 +39,43 @@
 </p-table>
 
 <!-- Dialog thêm/sửa -->
-<p-dialog [(visible)]="dialogVisible" [modal]="true" [style]="{ width: '500px' }" [header]="isEdit ? 'Sửa sạp' : 'Thêm sạp'">
-  <form [formGroup]="form" class="p-fluid">
+<p-dialog [(visible)]="dialogVisible" [modal]="true" [style]="{ width: '500px' }"
+  [header]="isEdit ? 'Sửa sạp' : 'Thêm sạp'">
+  <form [formGroup]="form" class="p-fluid form-grid">
     <div class="p-field">
       <label for="name">Tên sạp</label>
       <input id="name" pInputText formControlName="name" />
     </div>
+
     <div class="p-field">
       <label for="address">Địa chỉ</label>
       <input id="address" pInputText formControlName="address" />
     </div>
+
     <div class="p-field">
       <label for="openHours">Giờ hoạt động</label>
       <input id="openHours" pInputText formControlName="openHours" />
     </div>
+
     <div class="p-field">
       <label for="contact">Liên hệ</label>
       <input id="contact" pInputText formControlName="contact" />
     </div>
+
     <div class="p-field">
       <label for="items">Mặt hàng</label>
       <input id="items" pInputText formControlName="items" />
     </div>
+
     <div class="p-field">
-      <label for="images">Ảnh (đường dẫn)</label>
-      <input id="images" pInputText formControlName="images" placeholder="assets/example.jpg" />
-    </div>
-    <div class="p-field">
-      <label>Đánh giá</label>
-      <p-rating formControlName="rating" [cancel]="false"></p-rating>
+      <label for="images">Ảnh (tải lên)</label>
+      <p-fileUpload name="images[]" customUpload="true" (onSelect)="onImageSelect($event)" [showUploadButton]="false"
+        [showCancelButton]="false" chooseLabel="Chọn ảnh" multiple="false" accept="image/*">
+      </p-fileUpload>
+
+      <div *ngIf="previewImage" class="preview-container">
+        <img [src]="previewImage" alt="Xem trước" class="preview-img" />
+      </div>
     </div>
   </form>
 
@@ -83,3 +84,40 @@
     <button pButton label="Lưu" icon="pi pi-check" (click)="save()" [disabled]="form.invalid"></button>
   </p-footer>
 </p-dialog>
+
+<p-dialog header="Sạp đang chờ duyệt" [(visible)]="pendingDialogVisible" [modal]="true" [style]="{ width: '650px' }">
+  <div *ngFor="let stall of pendingStalls" class="pending-card">
+    <img [src]="stall.images[0]" alt="Ảnh sạp"
+      style="width: 100px; height: 70px; object-fit: cover; border-radius: 4px; margin-right: 10px;" />
+    <div style="flex: 1;">
+      <h4 style="margin: 0;">{{ stall.name }}</h4>
+      <p style="margin: 2px 0;"><strong>Địa chỉ:</strong> {{ stall.address }}</p>
+      <p style="margin: 2px 0;"><strong>Liên hệ:</strong> {{ stall.contact }}</p>
+      <p style="margin: 2px 0;"><strong>Mặt hàng:</strong> {{ stall.items }}</p>
+      <p style="margin: 2px 0;"><strong>Giờ hoạt động:</strong> {{ stall.openHours }}</p>
+
+
+
+    </div>
+    <div class="action-buttons">
+        <button pButton label="Duyệt" icon="pi pi-check" class="p-button-success p-button-sm"
+          (click)="approveStall(stall)">
+        </button>
+        <button pButton label="Không duyệt" icon="pi pi-times" class="p-button-danger p-button-sm"
+          (click)="rejectStall(stall)">
+        </button>
+      </div>
+  </div>
+
+  <p-footer>
+    <button pButton label="Đóng" icon="pi pi-times" class="p-button-text"
+      (click)="pendingDialogVisible = false"></button>
+  </p-footer>
+</p-dialog>
+
+
+<!-- Popup xác nhận -->
+<p-confirmDialog></p-confirmDialog>
+
+<!-- Toast -->
+<p-toast></p-toast>

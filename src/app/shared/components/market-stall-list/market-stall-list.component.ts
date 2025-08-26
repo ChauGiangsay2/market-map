@@ -68,7 +68,7 @@ lastAddedStall: any;
         openHours: '6h - 18h',
         contact: '0901 111 222',
         items: 'Xoài, Ổi, Cam',
-        images: ['assets/fruits.jpg'],
+        images: ['https://suno.vn/blog/wp-content/uploads/2018/04/ban-trai-cay.jpg'],
         rating: 4.5
       },
       {

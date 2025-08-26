@@ -12,13 +12,5 @@ import { DialogService } from 'primeng/dynamicdialog';
   styleUrl: './menu-horizontal.component.scss',
 })
 export class MenuHorizontalComponent {
-  menus: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: 'pi pi-home',
-      routerLink: '/dashboard',
-    },
-
-  ];
 
 }

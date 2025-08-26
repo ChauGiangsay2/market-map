@@ -1,5 +1,4 @@
 export const environment = {
-  production: true,
   // begin  url api
   apiQlcv: 'https://qlcv.vn',
   apiSSOUrl: 'https://sso.thongbao.net.vn',
@@ -10,4 +9,10 @@ export const environment = {
   domain: '.qlcv.vn',
   loginUrl:
     'https://sso.thongbao.net.vn/account/login/#http://qlcv.vn/account/setToken',
+
+  production: true,
+  nominatimBaseUrl: 'https://nominatim.openstreetmap.org',
+  // identify your app per Nominatim policy (will be used as referer)
+  appName: 'hamburger-maps'
+
 };

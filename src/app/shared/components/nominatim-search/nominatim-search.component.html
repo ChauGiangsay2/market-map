@@ -1,0 +1,50 @@
+<div class="nominatim-search">
+  <!-- Ô tìm kiếm -->
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon">
+      <i class="pi pi-search"></i>
+    </span>
+    <input
+      type="text"
+      pInputText
+      [placeholder]="placeholder()"
+      [formControl]="query"
+      (focus)="hasFocus = true"
+      (keydown)="onKeydown($event, resultsLength)"
+    />
+    <span class="p-inputgroup-addon" *ngIf="loading">
+      <p-progressSpinner
+        styleClass="w-4 h-4"
+        strokeWidth="8"
+        animationDuration=".5s">
+      </p-progressSpinner>
+    </span>
+  </div>
+
+  <!-- Danh sách kết quả -->
+  <p-panel *ngIf="hasFocus" class="results-panel" [toggleable]="false">
+    <ng-container *ngIf="(results$ | async) as results; else emptyState">
+      <ul class="p-listbox" role="listbox" *ngIf="results.length">
+        <li
+          *ngFor="let r of results; let i = index; trackBy: trackById"
+          role="option"
+          class="p-listbox-item"
+          [class.p-highlight]="i === activeIndex"
+          (mousedown)="onPick(r)"
+          (mouseenter)="activeIndex = i"
+          (mouseleave)="activeIndex = -1"
+        >
+          <div class="name">{{ r.display_name }}</div>
+          <div class="meta">
+            {{ r.type || r.class }} • {{ r.lat }}, {{ r.lon }}
+          </div>
+        </li>
+      </ul>
+    </ng-container>
+  </p-panel>
+
+  <!-- Empty -->
+  <ng-template #emptyState>
+    <div class="p-text-secondary p-2">Không có kết quả</div>
+  </ng-template>
+</div>

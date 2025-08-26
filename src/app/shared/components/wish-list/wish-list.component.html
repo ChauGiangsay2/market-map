@@ -1,3 +1,22 @@
+<!-- Thanh search nổi trên bản đồ -->
+<p-panel [toggleable]="false" [showHeader]="false">
+<div class="search-bar">
+  <app-nominatim-search
+    placeholder="Tìm kiếm địa điểm..."
+    [limit]="5"
+    countrycodes="vn"
+    (placeSelected)="onPlaceSelected($event)">
+  </app-nominatim-search>
+    <!-- Bộ lọc -->
+  <div class="filters">
+    <p-dropdown
+      [options]="criteriaOptions"
+      [(ngModel)]="selectedCriteria"
+      placeholder="Chọn tiêu chí">
+    </p-dropdown>
+  </div>
+</div></p-panel>
+
 <!-- BẢN ĐỒ -->
 <div class="map-container"
      leaflet
@@ -5,6 +24,7 @@
      (leafletMapReady)="onMapReady($event)"
      (leafletClick)="onMapClick($event)">
 </div>
+
 
 <!-- FORM THÊM ĐIỂM -->
 <p-dialog header="Thêm điểm mới"
@@ -18,7 +38,7 @@
     </div>
     <div class="p-field">
       <label>Địa chỉ</label>
-      <input pInputText [value]="clickedAddress()" disabled />
+<input pInputText [value]="clickedAddress()" disabled />
     </div>
     <div class="p-field">
       <label for="description">Miêu tả</label>
@@ -68,3 +88,4 @@
         class="p-button-rounded p-button-lg admin-fab"
         (click)="goToAdmin()">
 </button>
+

@@ -29,8 +29,14 @@ export class TopComponent implements OnInit {
   userName = '';
 
   showLoginDialog = false;
+  showRegisterDialog = false;  // ✅ form đăng ký
+
   loginUsername = '';
   loginPassword = '';
+
+  registerUsername = '';
+  registerPassword = '';
+  registerConfirmPassword = '';
 
   listRoute = [
     {
@@ -49,6 +55,10 @@ export class TopComponent implements OnInit {
     this.showLoginDialog = true;
   }
 
+  openRegisterDialog(): void {
+    this.showRegisterDialog = true;
+  }
+
   submitLogin(): void {
     if (this.loginUsername && this.loginPassword) {
       this.userName = this.loginUsername;
@@ -58,6 +68,18 @@ export class TopComponent implements OnInit {
       this.showLoginDialog = false;
       this.loginUsername = '';
       this.loginPassword = '';
+    }
+  }
+
+  submitRegister(): void {
+    if (this.registerPassword === this.registerConfirmPassword) {
+      alert(`Đăng ký thành công cho tài khoản: ${this.registerUsername}`);
+      this.showRegisterDialog = false;
+      this.registerUsername = '';
+      this.registerPassword = '';
+      this.registerConfirmPassword = '';
+    } else {
+      alert('Mật khẩu và xác nhận mật khẩu không khớp!');
     }
   }
 
