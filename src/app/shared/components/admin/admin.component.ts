@@ -64,7 +64,7 @@ constructor(
     this.stalls = [
       {
         name: 'Sạp Trái Cây Cô Năm',
-        address: 'Lô A1, Chợ Bà Chiểu',
+        address: 'Lô A1.1, Chợ Bà Chiểu',
         openHours: '6h - 18h',
         contact: '0901 111 222',
         items: 'Xoài, Ổi, Cam',
@@ -73,7 +73,7 @@ constructor(
       },
       {
         name: 'Sạp Cá Chú Bảy',
-        address: 'Lô C2, Chợ Bà Chiểu',
+        address: 'Lô B2.1, Chợ Bà Chiểu',
         openHours: '5h - 14h',
         contact: '0902 333 444',
         items: 'Cá lóc, cá rô',
@@ -82,7 +82,7 @@ constructor(
       },
       {
         name: 'Sạp Quần Áo Cô Trang',
-        address: 'Lô B3, Chợ Bà Chiểu',
+        address: 'Lô B3.1, Chợ Bà Chiểu',
         openHours: '8h - 20h',
         contact: '0903 555 666',
         items: 'Áo thun, quần jeans',
@@ -91,7 +91,7 @@ constructor(
       },
       {
         name: 'Sạp Gạo Chú Ba',
-        address: 'Lô A5, Chợ Bà Chiểu',
+        address: 'Lô A2.1, Chợ Bà Chiểu',
         openHours: '7h - 17h',
         contact: '0904 777 888',
         items: 'Gạo ST25, gạo Nàng Thơm',
@@ -100,7 +100,7 @@ constructor(
       },
       {
         name: 'Sạp Gia Vị Cô Sáu',
-        address: 'Lô D2, Chợ Bà Chiểu',
+        address: 'Lô A2.5, Chợ Bà Chiểu',
         openHours: '6h - 18h',
         contact: '0905 999 000',
         items: 'Muối, nước mắm, tiêu, bột ngọt',
@@ -209,6 +209,31 @@ approveStall(stall: any) {
 rejectStall(stall: any) {
   // Ví dụ: chỉ xóa khỏi danh sách pending
   this.pendingStalls = this.pendingStalls.filter(s => s !== stall);
+}
+stallDialogVisible = false;
+
+stallss = [
+  { code: 'A1.1', x: 0, y: 0, occupied: true },
+  // { code: 'A1.2', x: 15, y: 20, occupied: true },
+
+  // { code: 'A2', x: 25, y: 20, occupied: false },
+  // { code: 'B1', x: 10, y: 40, occupied: false },
+  // ... các sạp
+];
+
+showStallDialog() {
+  this.stallDialogVisible = true;
+}
+
+selectStall(stall: any) {
+  if (!stall.occupied) {
+    this.form.patchValue({
+      address: `Sạp ${stall.code}, Chợ Bà Chiểu`
+    });
+    this.stallDialogVisible = false;
+  } else {
+    alert(`❌ Sạp ${stall.code} đã có người thuê!`);
+  }
 }
 
 }

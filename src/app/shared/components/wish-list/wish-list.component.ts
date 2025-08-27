@@ -57,7 +57,7 @@ export class WishListComponent {
    {
         name: 'Sạp Trái Cây Cô Năm',
         coords: [10.8052, 106.6923] as LatLngTuple,
-        address: 'Lô A1, Chợ Bà Chiểu',
+        address: 'Lô A1.1, Chợ Bà Chiểu',
         openHours: '6h - 18h',
         contact: '0901 111 222',
         items: 'Xoài, Ổi, Cam',
@@ -67,7 +67,7 @@ export class WishListComponent {
       {
         name: 'Sạp Cá Chú Bảy',
         coords: [10.8045, 106.6915] as LatLngTuple,
-        address: 'Lô C2, Chợ Bà Chiểu',
+        address: 'Lô B2.1, Chợ Bà Chiểu',
         openHours: '5h - 14h',
         contact: '0902 333 444',
         items: 'Cá lóc, cá rô',
@@ -77,7 +77,7 @@ export class WishListComponent {
       {
         name: 'Sạp Quần Áo Cô Trang',
         coords: [10.8058, 106.6930] as LatLngTuple,
-        address: 'Lô B3, Chợ Bà Chiểu',
+        address: 'Lô B3.1, Chợ Bà Chiểu',
         openHours: '8h - 20h',
         contact: '0903 555 666',
         items: 'Áo thun, quần jeans',
@@ -87,7 +87,7 @@ export class WishListComponent {
       {
         name: 'Sạp Gạo Chú Ba',
 coords: [10.8058, 106.6930] as LatLngTuple,
-        address: 'Lô A5, Chợ Bà Chiểu',
+        address: 'Lô A2.1, Chợ Bà Chiểu',
         openHours: '7h - 17h',
         contact: '0904 777 888',
         items: 'Gạo ST25, gạo Nàng Thơm',
@@ -97,7 +97,7 @@ coords: [10.8058, 106.6930] as LatLngTuple,
       {
         name: 'Sạp Gia Vị Cô Sáu',
                 coords: [10.8058, 106.6930] as LatLngTuple,
-        address: 'Lô D1, Chợ Bà Chiểu',
+        address: 'Lô A2.5, Chợ Bà Chiểu',
         openHours: '6h - 19h',
         contact: '0905 999 000',
         items: 'Muối, nước mắm, tiêu',

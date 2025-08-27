@@ -8,13 +8,7 @@
     (placeSelected)="onPlaceSelected($event)">
   </app-nominatim-search>
     <!-- Bộ lọc -->
-  <div class="filters">
-    <p-dropdown
-      [options]="criteriaOptions"
-      [(ngModel)]="selectedCriteria"
-      placeholder="Chọn tiêu chí">
-    </p-dropdown>
-  </div>
+
 </div></p-panel>
 
 <!-- BẢN ĐỒ -->
@@ -24,7 +18,6 @@
      (leafletMapReady)="onMapReady($event)"
      (leafletClick)="onMapClick($event)">
 </div>
-
 
 <!-- FORM THÊM ĐIỂM -->
 <p-dialog header="Thêm điểm mới"

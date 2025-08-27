@@ -78,3 +78,42 @@
   justify-content: flex-end;
   margin-top: 30px; /* ✅ căn về bên phải */
 }
+.map-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+
+.market-map {
+  max-width: 100%;   /* không vượt quá khung dialog */
+  max-height: 400px; /* giới hạn chiều cao */
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;    /* căn giữa */
+  border-radius: 8px;
+  object-fit: contain; /* giữ tỉ lệ, không bị méo */
+}
+
+
+  .img{
+    width: 50%;
+  }
+
+  .stall-box {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 255, 0, 0.4);
+    color: #000;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &.occupied {
+      background-color: rgba(255, 0, 0, 0.4);
+      pointer-events: none;
+    }
+  }
+}

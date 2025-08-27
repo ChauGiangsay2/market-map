@@ -50,6 +50,13 @@
     <div class="p-field">
       <label for="address">Địa chỉ</label>
       <input id="address" pInputText formControlName="address" />
+
+       <button pButton 
+          label="Chọn sạp trống" 
+          icon="pi pi-map" 
+          (click)="showStallDialog()"
+          class="p-button-secondary p-ml-2">
+  </button>
     </div>
 
     <div class="p-field">
@@ -113,6 +120,30 @@
     <button pButton label="Đóng" icon="pi pi-times" class="p-button-text"
       (click)="pendingDialogVisible = false"></button>
   </p-footer>
+</p-dialog>
+
+
+
+<!-- dialog -->
+
+<p-dialog header="Chọn sạp trống" 
+          [(visible)]="stallDialogVisible" 
+          [modal]="true" 
+          [style]="{width: '60vw'}">
+  
+  <div class="map-container">
+    <img src="hihi.png" class="market-map"/>
+
+    <!-- Ví dụ hiển thị overlay ô trống -->
+    <!-- <div *ngFor="let stall of stallss"
+         class="stall-box"
+         [style.left.%]="stall.x"
+         [style.top.%]="stall.y"
+         [class.occupied]="stall.occupied"
+         (click)="selectStall(stall)">
+      {{ stall.code }}
+    </div> -->
+  </div>
 </p-dialog>
 
 
