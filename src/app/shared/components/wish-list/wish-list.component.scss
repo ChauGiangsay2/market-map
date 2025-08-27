@@ -98,3 +98,95 @@
   border: none !important;
 }
 
+.route-search {
+  width: 340px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
+}
+
+.route-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.route-input {
+  flex: 1;
+  padding: 8px 40px 8px 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.start-icon {
+  color: #4caf50;
+  font-size: 0.8rem;
+  position: absolute;
+  left: 10px;
+}
+
+.end-icon {
+  color: #e53935;
+  font-size: 1rem;
+  position: absolute;
+  left: 10px;
+}
+
+.route-btn {
+  position: absolute;
+  right: 5px;
+  color: #1976d2;
+}
+
+.swap-btn {
+  position: absolute;
+  right: 5px;
+  color: #444;
+}
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Hàng ngang cho search + icon */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* khoảng cách giữa search và icon */
+}
+
+.search-row app-nominatim-search {
+  flex: 1; /* search chiếm hết chiều rộng */
+}
+
+.route-icon {
+  background-color: #1976d2;
+  color: white;
+  border-radius: 8px;
+  //height: 44px;
+  width: 44px;
+}
+:host ::ng-deep .nearest-dialog {
+  position: fixed !important;
+  bottom: 20px !important;   /* cách mép dưới */
+  left: 20px !important;     /* cách mép trái */
+  margin: 0 !important;
+  width: 300px !important;   /* cố định chiều rộng nhỏ gọn */
+}
+
+:host ::ng-deep .nearest-dialog .p-dialog {
+  margin: 0 !important;
+  position: static !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}

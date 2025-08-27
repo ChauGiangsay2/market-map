@@ -21,6 +21,7 @@
     "@angular/router": "^18.0.0",
     "@asymmetrik/ngx-leaflet": "^18.0.1",
     "@turf/turf": "^7.2.0",
+    "axios": "^1.11.0",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "ng-lazyload-image": "^9.1.3",

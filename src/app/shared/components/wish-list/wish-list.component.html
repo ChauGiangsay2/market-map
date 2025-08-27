@@ -1,15 +1,44 @@
 <!-- Thanh search nổi trên bản đồ -->
 <p-panel [toggleable]="false" [showHeader]="false">
-<div class="search-bar">
-  <app-nominatim-search
-    placeholder="Tìm kiếm địa điểm..."
-    [limit]="5"
-    countrycodes="vn"
-    (placeSelected)="onPlaceSelected($event)">
-  </app-nominatim-search>
-    <!-- Bộ lọc -->
+  <div class="search-bar">
+    <div class="search-row">
+      <!-- Tìm kiếm -->
+      <app-nominatim-search
+        placeholder="Tìm kiếm địa điểm..."
+        [limit]="5"
+        countrycodes="vn"
+        (placeSelected)="onPlaceSelected($event)">
+      </app-nominatim-search>
 
-</div></p-panel>
+      <!-- Icon chỉ đường -->
+      <button
+        pButton
+        class="route-icon"
+        (click)="getRouteFromUITToBaChieu()"
+        type="button"
+        icon="pi pi-directions">
+      </button>
+    </div>
+
+    <!-- Điểm đến -->
+    <div class="route-field">
+      <i class="pi pi-map-marker end-icon"></i>
+      <input
+        type="text"
+        placeholder="Chọn điểm đến..."
+        [(ngModel)]="endAddress"
+        class="route-input"
+      />
+      <button
+        pButton
+        icon="pi pi-exchange"
+        class="p-button-rounded p-button-text swap-btn"
+        (click)="swapPoints()"
+        pTooltip="Đổi điểm đi/đến"
+      ></button>
+    </div>
+  </div>
+</p-panel>
 
 <!-- BẢN ĐỒ -->
 <div class="map-container"
@@ -70,6 +99,26 @@
           [modal]="true"
           [style]="{ width: '600px', height: '500px' }">
   <app-market-stall-list [stalls]="vendors"></app-market-stall-list>
+</p-dialog>
+
+<!-- Dialog chợ gần nhất -->
+<p-dialog 
+  header="Chợ gần nhất"
+  [(visible)]="nearestDialogVisible"
+  [modal]="false"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  [style]="{ width: '300px' }"
+  styleClass="nearest-dialog">
+
+  <div *ngIf="nearestMarket">
+    <h4>{{ nearestMarket.name }}</h4>
+    <p><strong>Địa chỉ:</strong> {{ nearestMarket.address }}</p>
+    <p><strong>Khoảng cách:</strong> {{ nearestMarket.distance.toFixed(2) }} km</p>
+    <p><strong>Rating:</strong> ⭐ {{ nearestMarket.rating }}</p>
+  </div>
 </p-dialog>
 
 
